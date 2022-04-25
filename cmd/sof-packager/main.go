@@ -14,11 +14,6 @@ import (
 	"google.golang.org/protobuf/encoding/prototext"
 )
 
-var formatter = prototext.MarshalOptions{
-	Multiline: true,
-	Indent:    "  ",
-}
-
 func do(ctx context.Context, config, outDir string, keepBuildDir bool) error {
 	ctxt, err := os.ReadFile(config)
 	if err != nil {
