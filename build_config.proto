@@ -1,0 +1,78 @@
+syntax = "proto3";
+package tutorial;
+
+option go_package = "github.com/afq984/sof-packager/internal/pb";
+
+message BuildConfig {
+  // SOF repository URL
+  string repo = 1;
+
+  // git branch
+  string branch = 2;
+
+  // git commit
+  string commit = 3;
+
+  // Name of the tarball, without the file extension
+  string tarball = 4;
+
+  // If specified, the files will be placed directly in the tarball
+  // Otherwise, the files will be inside a directory named as the tarball name
+  bool flat_tarball = 5;
+
+  string version = 6;
+
+  Firmware firmware = 8;
+
+  Topology topology = 9;
+
+  repeated ExtraBlob extra_blob = 10;
+
+  repeated Artifact artifact = 11;
+}
+
+message Firmware {
+  DockerConfig docker = 1;
+
+  // Build arg passed to xtensa-build-all.sh
+  repeated string build_arg = 2;
+}
+
+message Topology {
+  DockerConfig docker = 1;
+}
+
+message DockerConfig {
+  // Use docker to build
+  bool use = 1;
+
+  // Docker image identifier
+  // https://docs.docker.com/engine/reference/run/#imagedigest
+  // Defaults to thesofproject/sof:latest
+  string identifier = 2;
+}
+
+message Artifact {
+  // The name to put in the tarball. Defaults to basename of built_path.
+  string name = 1;
+
+  // Path of the built artifact
+  string built_path = 2;
+
+  // The checksum of the artifact
+  string sha256 = 3;
+}
+
+message ExtraBlob {
+  // Human-readable description of the blob
+  string description = 1;
+
+  // Relative path to the config file
+  string src = 2;
+
+  // Path placed in SOF repository
+  string dst = 3;
+
+  // Sha256 Checksum of the BLOB
+  string sha256 = 4;
+}

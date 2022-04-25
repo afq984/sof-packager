@@ -1,0 +1,26 @@
+# build SOF main branch for mt8195,
+# using system toolchain for firmware and docker for topology
+repo: "https://github.com/thesofproject/sof.git"
+branch: "main"
+tarball: "sof-mt8195"
+version: "0.9999"
+firmware: {
+  build_arg: "mt8195"
+}
+topology: {
+  docker: {
+    use: true
+  }
+}
+artifact: {
+  built_path: "build_mt8195_xcc/sof-mt8195.ri"
+}
+artifact: {
+  built_path: "build_mt8195_xcc/sof-mt8195.ldc"
+}
+artifact: {
+  built_path: "tools/build_tools/topology/sof-mt8195-mt6359-rt1019-rt5682.tplg"
+}
+artifact: {
+  built_path: "tools/build_tools/topology/sof-mt8195-mt6359-max98390-rt5682.tplg"
+}
